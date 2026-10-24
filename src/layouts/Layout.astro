@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+import { menu } from '../data/site.js';
+const { title = 'ভূমিসেবা.বাংলা' } = Astro.props;
+---
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="bg-flag text-white">
+    <div class="relative mx-auto grid max-w-[1160px] grid-cols-[1fr_auto] items-center gap-y-3 px-4 py-3 md:flex md:justify-between md:gap-3 md:px-5 md:py-3.5">
+
+      <a href="/" class="flex items-center gap-3">
+        <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="10" fill="#E0A526"/><path d="M8 32 L22 12 L36 32 Z" fill="#006A4E"/><path d="M8 36 H36" stroke="#006A4E" stroke-width="3"/></svg>
+        <span class="text-[22px] font-bold">ভূমিসেবা.বাংলা</span>
+      </a>
+
+      <nav aria-label="প্রধান মেনু" class="hidden flex-wrap gap-x-5 gap-y-1.5 text-base md:flex">
+        {menu.map((m) => <a href={m.href}>{m.name}</a>)}
+      </nav>
+
+      <div class="flex justify-self-end overflow-hidden rounded-[10px] border-2 border-white text-base font-semibold">
+        <a href="#" class="flex min-h-10 items-center bg-white px-3.5 text-flag">বাংলা</a>
+        <a href="#" class="flex min-h-10 items-center px-3.5 text-white">EN</a>
+      </div>
+
+      <details class="md:hidden">
+        <summary aria-label="মেনু খুলুন" class="flex h-11 w-12 items-center justify-center rounded-[10px] border-2 border-white">
+          <svg width="26" height="20" viewBox="0 0 26 20" aria-hidden="true"><path d="M2 3H24M2 10H24M2 17H24" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+        </summary>
+        <div class="absolute left-4 right-4 top-full z-30 flex flex-col rounded-xl bg-white p-2 text-[17px] font-semibold text-deep shadow-lg">
+          {menu.map((m) => <a href={m.href} class="flex min-h-12 items-center border-b border-line px-3 last:border-b-0">{m.name}</a>)}
+        </div>
+      </details>
+
+      <details class="relative z-20 justify-self-end">
+        <summary class="flex min-h-11 items-center gap-2 rounded-[10px] bg-gold px-[18px] text-base font-bold text-deep">
+          লগইন
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5 L7 10 L12 5" fill="none" stroke="#0B3D2E" stroke-width="2"/></svg>
+        </summary>
+        <div class="absolute right-0 top-[52px] flex w-[220px] flex-col gap-3 rounded-xl bg-white p-3.5 shadow-lg">
+          <a href="#" class="flex min-h-11 items-center justify-center rounded-lg border border-flag bg-white text-base font-semibold text-deep">এলএসএফসি লগিন</a>
+          <a href="#" class="flex min-h-11 items-center justify-center rounded-lg border border-flag bg-white text-base font-semibold text-deep">এডমিন লগিন</a>
+        </div>
+      </details>
+
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="bg-deep text-[#DDEFEA]">
+    <div class="mx-auto max-w-[1160px] px-5 py-8 text-[15px] leading-[1.8]">
+      <div class="mb-1.5 text-[17px] font-bold text-white">ভূমিসেবা.বাংলা</div>
+      <div>এটি একটি বেসরকারি তথ্য ও সহায়তা সাইট, সরকারি ওয়েবসাইট নয়।</div>
+      <div class="mt-2.5 flex flex-wrap gap-x-5 gap-y-1.5">
+        <a href="#" class="underline">ভুল পেলে জানান</a>
+        <a href="/contact">যোগাযোগ</a>
+        <a href="#">ওপেন সোর্স কোড</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

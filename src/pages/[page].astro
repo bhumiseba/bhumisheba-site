@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { menu } from '../data/site.js';
+
+export function getStaticPaths() {
+  return menu
+    .filter((m) => m.href !== '/')
+    .map((m) => ({
+      params: { page: m.href.slice(1) },
+      props: { name: m.name },
+    }));
+}
+
+const { name } = Astro.props;
+---
+<Layout title={`${name} — ভূমিসেবা.বাংলা`}>
+  <section class="mx-auto max-w-[1160px] px-4 py-16 md:px-5">
+    <h1 class="mb-4 text-[32px] font-bold text-deep">{name}</h1>
+    <div class="rounded-[14px] border border-line bg-white p-6 text-lg leading-[1.7]">
+      এই পাতার লেখা শীঘ্রই আসছে।
+    </div>
+  </section>
+</Layout>

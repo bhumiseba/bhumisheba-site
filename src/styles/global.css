@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-flag: #006A4E;
+  --color-deep: #0B3D2E;
+  --color-gold: #E0A526;
+  --color-mist: #E6F2EA;
+  --color-paper: #F6F8F3;
+  --color-line: #DCE5DD;
+  --color-muted: #4A5A5E;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans Bengali", sans-serif;
+  background: #F6F8F3;
+  color: #1B2A22;
+}
+
+summary {
+  list-style: none;
+  cursor: pointer;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
