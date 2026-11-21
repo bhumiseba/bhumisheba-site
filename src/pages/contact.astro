@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const email = 'info.kclbd@gmail.com';
+const mail = (subject) => `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+
+const topics = [
+  { label: 'জমির একক রূপান্তর', subject: 'জমির একক রূপান্তর সম্পর্কে জিজ্ঞাসা' },
+  { label: 'ওয়ারিশ অংশ', subject: 'ওয়ারিশ অংশ সম্পর্কে জিজ্ঞাসা' },
+  { label: 'নামজারি', subject: 'নামজারি সম্পর্কে জিজ্ঞাসা' },
+  { label: 'ফি ও কর', subject: 'ফি ও কর সম্পর্কে জিজ্ঞাসা' },
+  { label: 'সাইটে ভুল তথ্য জানান', subject: 'ভুল তথ্য জানাচ্ছি' },
+  { label: 'অন্যান্য', subject: 'জিজ্ঞাসা' },
+];
+---
+<Layout title="যোগাযোগ — ভূমিসেবা.বাংলা" description="যেকোনো জিজ্ঞাসা বা সহায়তার জন্য আমাদের সাথে যোগাযোগ করুন।">
+
+  <!-- হিরো সেকশন -->
+  <section class="bg-gradient-to-br from-mist to-paper py-12 md:py-16">
+    <div class="mx-auto max-w-[1160px] px-4 md:px-5">
+      <nav aria-label="ব্রেডক্রাম্ব" class="mb-4 text-sm text-muted">
+        <a href="/" class="hover:text-flag">হোম</a> <span class="mx-2">/</span> যোগাযোগ
+      </nav>
+      <h1 class="text-3xl font-bold text-deep md:text-4xl">আমাদের সাথে যোগাযোগ করুন</h1>
+      <p class="mt-3 max-w-2xl text-lg text-muted">
+        জমি, নামজারি, ওয়ারিশ বা আমাদের সেবা সম্পর্কিত যেকোনো জিজ্ঞাসা থাকলে ইমেইল করুন অথবা কল করুন। আমরা যত দ্রুত সম্ভব উত্তর দেওয়ার চেষ্টা করব।
+      </p>
+    </div>
+  </section>
+
+  <!-- যোগাযোগের তথ্য ও ইমেইল -->
+  <section class="mx-auto max-w-[1160px] px-4 py-12 md:px-5">
+    <div class="grid gap-8 md:grid-cols-[1fr_1.5fr] lg:gap-12">
+
+      <!-- বাম দিক: যোগাযোগের তথ্য -->
+      <div class="flex flex-col gap-6">
+        <div class="rounded-2xl border border-line bg-white p-6 shadow-soft md:p-8">
+          <h2 class="mb-6 text-xl font-bold text-deep">যোগাযোগের মাধ্যম</h2>
+
+          <div class="flex flex-col gap-5">
+            <!-- ইমেইল -->
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-mist text-flag">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-muted">ইমেইল করুন</div>
+                <a href={`mailto:${email}`} class="font-semibold text-deep hover:text-flag">{email}</a>
+              </div>
+            </div>
+
+            <!-- ফোন -->
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-mist text-flag">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-muted">কল করুন (সকাল ১০টা - বিকাল ৫টা)</div>
+                <a href="tel:+8801723506664" class="font-semibold text-deep hover:text-flag">+৮৮০ ১৭২৩৫০৬৬৬৪</a>
+              </div>
+            </div>
+
+            <!-- ঠিকানা -->
+            <div class="flex items-start gap-4">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-mist text-flag">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-muted">অফিসের ঠিকানা</div>
+                <div class="font-semibold text-deep">ইউনিয়ন পরিষদ গেট, ঘোগাদহ<br/>কুড়িগ্রাম সদর, কুড়িগ্রাম - ৫৬০০</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- সতর্কতা নোট -->
+        <div class="rounded-xl border border-gold/30 bg-gold/5 p-5 text-sm leading-relaxed text-deep">
+          <strong>সতর্কতা:</strong> কোনো ব্যক্তিগত বা সংবেদনশীল নথি (যেমন: দলিলের কপি, এনআইডি) প্রথম ইমেইলেই পাঠাবেন না। প্রয়োজনে আমরা নিরাপদে নথি চাইব।
+        </div>
+      </div>
+
+      <!-- ডান দিক: ইমেইল পাঠান -->
+      <div class="rounded-2xl border border-line bg-white p-6 shadow-soft md:p-8">
+        <h2 class="mb-2 text-xl font-bold text-deep">ইমেইলে বার্তা পাঠান</h2>
+        <p class="mb-6 text-base leading-relaxed text-muted">
+          নিচের যেকোনো একটি বিষয়ে চাপ দিলে আপনার মেইল অ্যাপ খুলবে এবং ঠিকানা ও বিষয় আগে থেকেই বসানো থাকবে। আপনি শুধু বার্তা লিখে পাঠাবেন।
+        </p>
+
+        <div class="grid gap-3 sm:grid-cols-2">
+          {topics.map((t) => (
+            <a href={mail(t.subject)}
+               class="flex min-h-12 items-center justify-center rounded-xl border-2 border-flag bg-white px-4 py-3 text-center text-[15px] font-semibold text-deep transition-colors hover:bg-mist">
+              {t.label}
+            </a>
+          ))}
+        </div>
+
+        <div class="mt-6 border-t border-line pt-6">
+          <a href={mail('জিজ্ঞাসা')}
+             class="flex min-h-12 w-full items-center justify-center rounded-xl bg-flag px-6 py-3.5 text-base font-bold text-white shadow-soft transition-all hover:-translate-y-0.5 hover:bg-deep hover:shadow-hover">
+            ইমেইল পাঠান
+          </a>
+          <p class="mt-3 text-center text-xs text-muted">
+            মেইল অ্যাপ না খুললে সরাসরি <span class="font-semibold text-deep">{email}</span> ঠিকানায় ইমেইল করুন।
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- গুগল ম্যাপ সেকশন -->
+    <div class="mt-12 w-full md:mt-16">
+      <div class="w-full overflow-hidden rounded-2xl border border-line shadow-soft">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3590.7316855718764!2d89.72498999999995!3d25.84538530000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e2b7e2cdb4733d%3A0xc9814b48ca75ff83!2z4Kat4KeC4Kau4Ka_4Ka44KeH4Kas4Ka-IOCmuOCmueCmvuCnn-CmpOCmviDgppXgp4fgpqjgp43gpqbgp43gprAsIOCmmOCni-Cml-CmvuCmpuCmuSwg4KaV4KeB4Kec4Ka_4KaX4KeN4Kaw4Ka-4Kau!5e0!3m2!1sen!2sbd!4v1794058354472!5m2!1sen!2sbd"
+          width="100%"
+          height="450"
+          style="border:0; display: block;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="ভূমিসেবা সহায়তা কেন্দ্র, ঘোগাদহ, কুড়িগ্রাম"
+          class="w-full grayscale-[20%] transition-all duration-300 hover:grayscale-0"
+        ></iframe>
+      </div>
+    </div>
+
+  </section>
+
+</Layout>

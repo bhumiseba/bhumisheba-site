@@ -2,49 +2,159 @@
 import Layout from '../layouts/Layout.astro';
 import { services } from '../data/site.js';
 ---
-<Layout title="ভূমিসেবা.বাংলা — ভূমির জটিল বিষয়, সহজ ভাষায়">
+<Layout
+  title="ভূমিসেবা.বাংলা — ভূমির জটিল বিষয়, সহজ ভাষায়"
+  description="আনা-গন্ডা থেকে শতাংশ, ওয়ারিশ অংশ, নামজারির ধাপ ও ফি — ঘরে বসেই জানুন ও হিসাব করুন। ভূমির জটিল বিষয়, সহজ বাংলায়।"
+>
 
+  <!-- হিরো -->
   <section class="bg-mist">
-    <div class="mx-auto flex max-w-[1160px] flex-wrap items-center justify-between gap-6 px-4 py-8 md:gap-8 md:px-5 md:py-14">
+    <div class="mx-auto flex max-w-[1160px] flex-wrap items-center justify-between gap-8 px-4 py-12 md:px-5 md:py-16">
       <div class="flex-[1_1_420px]">
-        <h1 class="mb-4 text-[28px] font-bold leading-[1.35] text-deep md:text-[40px]">ভূমির জটিল বিষয়, সহজ ভাষায়</h1>
-        <p class="mb-6 max-w-[560px] text-lg leading-[1.7]">আনা-গন্ডা থেকে শতাংশ, ওয়ারিশ অংশ, নামজারির ধাপ ও ফি — ঘরে বসেই জানুন, হিসাব করুন।</p>
+        <h1 class="mb-4 text-hero font-bold text-deep">
+          ভূমির জটিল বিষয়, সহজ ভাষায়
+        </h1>
+        <p class="mb-7 max-w-[560px] text-[17px] text-muted">
+          আনা-গন্ডা থেকে শতাংশ, ওয়ারিশ অংশ, নামজারির ধাপ ও ফি — ঘরে বসেই জানুন, হিসাব করুন।
+        </p>
         <div class="flex flex-wrap gap-3">
-          <a href="#" class="rounded-[10px] bg-flag px-6 py-3.5 text-[17px] font-semibold text-white">আনা-গন্ডা কনভার্ট করুন</a>
-          <a href="/process" class="rounded-[10px] border-2 border-flag bg-white px-6 py-3.5 text-[17px] font-semibold text-deep">সেবা পদ্ধতি দেখুন</a>
+          <a href="/converter"
+             class="rounded-[var(--radius-btn)] bg-flag px-6 py-3.5 text-[17px] font-semibold text-white shadow-sm transition hover:bg-deep hover:shadow-md">
+            জমির একক রূপান্তর
+          </a>
+          <a href="/process"
+             class="rounded-[var(--radius-btn)] border-2 border-flag bg-white px-6 py-3.5 text-[17px] font-semibold text-deep transition hover:bg-mist">
+            সেবা পদ্ধতি দেখুন
+          </a>
         </div>
+        <p class="mt-6 flex items-center gap-2 text-[14px] text-muted">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 4.5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য কোথাও জমা হয় না।
+        </p>
       </div>
-      <div class="flex-[0_1_340px] rounded-2xl border border-[#CBE3D3] bg-white p-6">
-        <div class="text-[15px] text-muted">একটি দ্রুত হিসাব</div>
-        <div class="my-2 text-[26px] font-bold text-deep">আনা-গন্ডা, কাঠা, বিঘা — সব শতাংশে</div>
-        <div class="text-[15px] leading-[1.6] text-muted">সব হিসাব আপনার ব্রাউজারেই হয়। কোনো তথ্য কোথাও জমা হয় না।</div>
+
+      <!-- দ্রুত কনভার্টার -->
+      <div class="flex-[0_1_380px] rounded-2xl border border-line bg-white p-6 shadow-sm">
+        <label for="hero-input" class="block text-[15px] font-medium text-muted">দ্রুত হিসাব</label>
+        <div class="mt-2 flex items-center gap-2">
+          <input
+            id="hero-input"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="any"
+            value="1"
+            class="w-full rounded-[var(--radius-btn)] border border-line bg-paper px-3.5 py-2.5 text-lg font-semibold text-deep outline-none transition focus:border-flag focus:ring-2 focus:ring-flag/20"
+          />
+          <select
+            id="hero-unit"
+            class="shrink-0 rounded-[var(--radius-btn)] border border-line bg-paper px-3 py-2.5 text-[15px] font-semibold text-deep outline-none transition focus:border-flag focus:ring-2 focus:ring-flag/20"
+          >
+            <option value="shotangsho">শতাংশ</option>
+            <option value="katha">কাঠা</option>
+            <option value="bigha" selected>বিঘা</option>
+            <option value="acre">একর</option>
+          </select>
+        </div>
+        <div id="hero-result" class="mt-4 space-y-1 text-[15px] text-deep"></div>
+        <a href="/converter" class="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold text-flag hover:underline">
+          সব এককে দেখুন
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-[1160px] px-4 pb-4 pt-10 md:px-5">
-    <h2 class="mb-2 text-[28px] font-bold">সেবা ও অ্যাপ</h2>
+  <!-- সেবা কার্ড -->
+  <section class="mx-auto max-w-[1160px] px-4 pb-4 pt-12 md:px-5">
+    <h2 class="mb-2 text-h2 font-bold text-deep">সেবা ও অ্যাপ</h2>
     <p class="mb-7 text-base text-muted">একটি কার্ডে ছুঁয়ে সংশ্লিষ্ট অ্যাপ বা তথ্যের পাতায় যান।</p>
+
     <div class="grid grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] md:gap-5">
-      {services.map((s) => (
+      {services.map((s) => s.status === 'live' ? (
         <a
           href={s.href}
-          class={`flex min-h-[150px] flex-col overflow-hidden rounded-[14px] border transition-transform hover:-translate-y-[3px] ${s.dark ? 'border-deep bg-deep text-white' : 'border-line bg-white'}`}
+          class:list={[
+            'group relative flex min-h-[160px] flex-col overflow-hidden rounded-[var(--radius-card)] border transition hover:-translate-y-1 hover:shadow-md focus-visible:-translate-y-1',
+            s.dark
+              ? 'border-deep bg-deep text-white hover:bg-[#0d4a37]'
+              : 'border-line bg-white hover:border-flag/50',
+          ]}
         >
-          <div class="h-2" style={`background:${s.color}`}></div>
-          <div class="mt-[22px] flex h-14 items-center justify-center" style={`color:${s.color}`}>
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={s.icon}></svg>
+          <div class="h-2 transition-all group-hover:h-3" style={`background:${s.color}`}></div>
+          <div class="mt-5 flex h-14 items-center justify-center" style={`color:${s.color}`}>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" set:html={s.icon}></svg>
           </div>
-          <div class="px-3 pb-[22px] pt-2.5 text-center text-base font-bold leading-[1.45] md:text-lg">{s.name}</div>
+          <div class="px-3 pb-5 pt-2 text-center text-[15px] font-bold leading-[1.5] md:text-base">{s.name}</div>
         </a>
+      ) : (
+        <div
+          aria-disabled="true"
+          class="relative flex min-h-[160px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-dashed border-line bg-white/60"
+        >
+          <div class="h-2 opacity-50" style={`background:${s.color}`}></div>
+          <span class="absolute right-2 top-4 rounded-full bg-gold/90 px-2 py-0.5 text-[10px] font-bold text-deep">
+            শীঘ্রই
+          </span>
+          <div class="mt-5 flex h-14 items-center justify-center opacity-60" style={`color:${s.color}`}>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" set:html={s.icon}></svg>
+          </div>
+          <div class="px-3 pb-5 pt-2 text-center text-[15px] font-bold leading-[1.5] text-muted md:text-base">{s.name}</div>
+        </div>
       ))}
     </div>
   </section>
 
-  <section class="mx-auto max-w-[1160px] px-4 pb-12 pt-8 md:px-5">
-    <div class="rounded-[14px] border border-line bg-white p-[22px] text-base leading-[1.7]">
-      <strong>জ্ঞাতব্য:</strong> এই সাইটের তথ্য সাধারণ তথ্য, আইনি পরামর্শ নয়। প্রতিটি পাতায় আইনের সূত্র ও সর্বশেষ হালনাগাদের তারিখ দেওয়া থাকবে।
+  <!-- লিগ্যাল নোট -->
+  <section class="mx-auto max-w-[1160px] px-4 pb-14 pt-10 md:px-5">
+    <div class="rounded-[var(--radius-card)] border border-line bg-white p-5 text-base leading-relaxed md:p-6">
+      <strong class="text-deep">জ্ঞাতব্য:</strong>
+      এই সাইটের তথ্য সাধারণ তথ্য, আইনি পরামর্শ নয়। প্রতিটি পাতায় আইনের সূত্র ও সর্বশেষ হালনাগাদের তারিখ দেওয়া থাকবে।
     </div>
   </section>
+
+  <script>
+    import { toShotangsho } from '../data/landUnits.js';
+
+    const input = document.getElementById('hero-input') as HTMLInputElement;
+    const unit = document.getElementById('hero-unit') as HTMLSelectElement;
+    const result = document.getElementById('hero-result') as HTMLDivElement;
+
+    function fmt(n: number, d = 3): string {
+      return n.toLocaleString('bn-BD', { maximumFractionDigits: d });
+    }
+
+    function render() {
+      const v = parseFloat(input.value);
+      if (!Number.isFinite(v) || v < 0) {
+        result.innerHTML = '<span class="text-muted">মান লিখুন</span>';
+        return;
+      }
+      const shot = v * toShotangsho[unit.value as keyof typeof toShotangsho];
+      const katha = shot / toShotangsho.katha;
+      const bigha = shot / toShotangsho.bigha;
+      const sqft = shot * 435.6;
+
+      result.innerHTML = `
+        <div class="flex justify-between"><span class="text-muted">শতাংশ</span><span class="font-bold">${fmt(shot)}</span></div>
+        <div class="flex justify-between"><span class="text-muted">কাঠা</span><span class="font-bold">${fmt(katha)}</span></div>
+        <div class="flex justify-between"><span class="text-muted">বিঘা</span><span class="font-bold">${fmt(bigha, 4)}</span></div>
+        <div class="flex justify-between border-t border-line pt-1"><span class="text-muted">বর্গফুট</span><span class="font-bold">${fmt(sqft, 0)}</span></div>
+      `;
+    }
+
+    input.addEventListener('input', render);
+    unit.addEventListener('change', render);
+    render();
+  </script>
 
 </Layout>

@@ -3,8 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import { menu } from '../data/site.js';
 
 export function getStaticPaths() {
+  // ✅ ফিক্স: ভেরিয়েবলটি ফাংশনের ভেতরে রাখা হয়েছে
+  const EXCLUDED = new Set(['/fees']);
+
   return menu
-    .filter((m) => m.href !== '/')
+    .filter((m) => m.href !== '/' && !EXCLUDED.has(m.href))
     .map((m) => ({
       params: { page: m.href.slice(1) },
       props: { name: m.name },
@@ -13,11 +16,45 @@ export function getStaticPaths() {
 
 const { name } = Astro.props;
 ---
-<Layout title={`${name} — ভূমিসেবা.বাংলা`}>
-  <section class="mx-auto max-w-[1160px] px-4 py-16 md:px-5">
-    <h1 class="mb-4 text-[32px] font-bold text-deep">{name}</h1>
-    <div class="rounded-[14px] border border-line bg-white p-6 text-lg leading-[1.7]">
-      এই পাতার লেখা শীঘ্রই আসছে।
+<Layout
+  title={`${name} — ভূমিসেবা.বাংলা`}
+  description={`${name} — ভূমিসেবা.বাংলায় শীঘ্রই আসছে। ভূমির জটিল বিষয়, সহজ বাংলায়।`}
+>
+  <section class="mx-auto max-w-[1160px] px-4 py-12 md:px-5 md:py-16">
+
+    <!-- ব্রেডক্রাম্ব -->
+    <nav aria-label="ব্রেডক্রাম্ব" class="mb-6 text-[14px] text-muted">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="/" class="transition-colors hover:text-deep hover:underline">হোম</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="page" class="font-semibold text-deep">{name}</span></li>
+      </ol>
+    </nav>
+
+    <!-- প্লেসহোল্ডার কার্ড -->
+    <div class="rounded-[var(--radius-card)] border border-line bg-white p-8 text-center shadow-sm md:p-14">
+      <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-mist text-flag">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="16" cy="16" r="12"/>
+          <path d="M16 10v6M16 20v.5"/>
+        </svg>
+      </div>
+      <h1 class="mb-3 text-h1 font-bold text-deep">{name}</h1>
+      <p class="mx-auto mb-8 max-w-[440px] text-[16px] leading-relaxed text-muted">
+        এই পাতার বিস্তারিত তথ্য শীঘ্রই আসছে। ততক্ষণ আমাদের অন্য সেবাগুলো দেখে নিতে পারেন।
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/"
+           class="rounded-[var(--radius-btn)] bg-flag px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-deep">
+          ← হোমে ফিরুন
+        </a>
+        <a href="/contact"
+           class="rounded-[var(--radius-btn)] border-2 border-flag bg-white px-5 py-3 text-[15px] font-semibold text-deep transition hover:bg-mist">
+          যোগাযোগ করুন
+        </a>
+      </div>
     </div>
+
   </section>
 </Layout>

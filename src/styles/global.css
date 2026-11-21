@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* ব্র্যান্ড প্যালেট */
   --color-flag: #006A4E;
   --color-deep: #0B3D2E;
   --color-gold: #E0A526;
@@ -8,13 +9,63 @@
   --color-paper: #F6F8F3;
   --color-line: #DCE5DD;
   --color-muted: #4A5A5E;
+  --color-ink: #1B2A22;
+
+  /* বাংলা ফন্ট */
+  --font-sans: "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+
+  /* টাইপ স্কেল (clamp = মোবাইল→ডেস্কটপ) */
+  --text-hero: clamp(1.75rem, 1.05rem + 3.4vw, 2.75rem);
+  --text-h1:   clamp(1.75rem, 1.2rem + 2vw, 2.25rem);
+  --text-h2:   clamp(1.375rem, 1rem + 1.5vw, 1.75rem);
+
+  /* লাইন-হাইট — বাংলা মাত্রার জন্য উদার */
+  --leading-heading: 1.45;
+  --leading-body:    1.8;
+
+  /* রেডিয়াস */
+  --radius-card: 14px;
+  --radius-btn:  10px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
   margin: 0;
-  font-family: "Noto Sans Bengali", sans-serif;
-  background: #F6F8F3;
-  color: #1B2A22;
+  font-family: var(--font-sans);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  line-height: var(--leading-heading);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* সব ইন্টারঅ্যাক্টিভ এলিমেন্টে দৃশ্যমান ফোকাস রিং */
+:where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 summary {
@@ -23,4 +74,22 @@ summary {
 }
 summary::-webkit-details-marker {
   display: none;
+}
+
+/* স্কিপ লিংক — কীবোর্ডে Tab চাপলে প্রথমে আসে */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0.5rem;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: var(--color-deep);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease-out;
+}
+.skip-link:focus {
+  top: 0.5rem;
 }

@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="ফি ক্যালকুলেটর – শীঘ্রই আসছে – ভূমিসেবা.বাংলা"
+  description="ফি ও কর ক্যালকুলেটরের হার সরকারি সূত্র থেকে যাচাইয়ের কাজ চলছে। যাচাই শেষে এই পাতায় চালু হবে।"
+>
+  <section class="mx-auto max-w-[1160px] px-4 py-12 md:px-5 md:py-16">
+
+    <!-- ব্রেডক্রাম্ব -->
+    <nav aria-label="ব্রেডক্রাম্ব" class="mb-6 text-[14px] text-muted">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="/" class="transition-colors hover:text-deep hover:underline">হোম</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="page" class="font-semibold text-deep">ফি তালিকা</span></li>
+      </ol>
+    </nav>
+
+    <!-- শীঘ্রই আসছে কার্ড -->
+    <div class="rounded-[var(--radius-card)] border border-line bg-white p-8 text-center">
+      <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="16" cy="16" r="12"/>
+          <path d="M16 10v6M16 20v.5"/>
+        </svg>
+      </div>
+      <h1 class="mb-3 text-h1 font-bold text-deep">ফি তালিকা ও ক্যালকুলেটর</h1>
+      <p class="mx-auto mb-4 max-w-[520px] text-[16px] leading-relaxed text-muted">
+        স্ট্যাম্প ডিউটি, রেজিস্ট্রেশন ফি ও করের হার সময়ে সময়ে এবং এলাকাভেদে বদলায়।
+        ভুল সংখ্যায় আপনার টাকার ক্ষতি হতে পারে, তাই সরকারি সূত্র থেকে প্রতিটি হার যাচাই করে
+        তারিখসহ প্রকাশ করা হবে।
+      </p>
+      <p class="mx-auto mb-8 max-w-[520px] text-[16px] leading-relaxed text-muted">
+        ততক্ষণ সঠিক হারের জন্য সংশ্লিষ্ট সরকারি অফিসে যোগাযোগ করুন। আমাদের অন্য সেবাগুলো দেখে নিতে পারেন।
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/"
+          class="rounded-[var(--radius-btn)] bg-flag px-5 py-3 text-[15px] font-semibold text-white">
+          ← হোমে ফিরুন
+        </a>
+        <a href="/contact"
+          class="rounded-[var(--radius-btn)] border-2 border-flag bg-white px-5 py-3 text-[15px] font-semibold text-deep">
+          যোগাযোগ করুন
+        </a>
+      </div>
+    </div>
+
+  </section>
+</Layout>

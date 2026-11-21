@@ -1,0 +1,150 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { units, toShotangsho, fmtBn } from '../data/landUnits.js';
+
+// সার্ভার-সাইডে সোর্স একক থেকে সব টার্গেট এককে প্রি-ক্যালকুলেট ফ্যাক্টর
+const conversionMatrix: Record<string, Record<string, number>> = {};
+for (const from of units) {
+  conversionMatrix[from.key] = {};
+  for (const to of units) {
+    conversionMatrix[from.key][to.key] = toShotangsho[to.key] / toShotangsho[from.key];
+  }
+}
+---
+<Layout
+  title="জমির একক রূপান্তরকারী — ভূমিসেবা.বাংলা"
+  description="বিঘা, কাঠা, শতাংশ, ছটাক, একর, হেক্টর, বর্গফুট — যেকোনো একক থেকে সব এককে রূপান্তর করুন, তাৎক্ষণিক।"
+>
+  <section class="mx-auto max-w-[1160px] px-4 py-10 md:px-5 md:py-14">
+
+    <!-- ব্রেডক্রাম্ব -->
+    <nav aria-label="ব্রেডক্রাম্ব" class="mb-6 text-[14px] text-muted">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="/" class="transition-colors hover:text-deep hover:underline">হোম</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="page" class="font-semibold text-deep">জমির একক রূপান্তরকারী</span></li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="mb-3 text-h1 font-bold text-deep">জমির একক রূপান্তরকারী</h1>
+      <p class="max-w-[640px] text-[17px] leading-relaxed text-muted">
+        বাংলাদেশের প্রথাগত একক — বিঘা, কাঠা, শতাংশ, ছটাক, কানি — সব একসাথে।
+        একটি মান লিখলেই বাকি সব এককে তাৎক্ষণিক ফলাফল।
+      </p>
+    </header>
+
+    <!-- ইনপুট + ফলাফল -->
+    <div class="rounded-[14px] border border-line bg-white p-5 shadow-sm md:p-7">
+      <div class="mb-5 flex flex-wrap items-end gap-3">
+        <div class="flex-[1_1_240px]">
+          <label for="conv-value" class="mb-1.5 block text-[15px] font-medium text-muted">পরিমাণ</label>
+          <input
+            id="conv-value"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="any"
+            value="1"
+            class="w-full rounded-[10px] border border-line bg-paper px-4 py-3 text-[22px] font-bold text-deep outline-none transition focus:border-flag focus:ring-2 focus:ring-flag/20"
+          />
+        </div>
+        <div class="flex-[0_1_200px]">
+          <label for="conv-unit" class="mb-1.5 block text-[15px] font-medium text-muted">একক</label>
+          <select
+            id="conv-unit"
+            class="w-full rounded-[10px] border border-line bg-paper px-3 py-3 text-base font-semibold text-deep outline-none transition focus:border-flag focus:ring-2 focus:ring-flag/20"
+          >
+            {units.map((u) => (
+              <option value={u.key} selected={u.key === "bigha" ? true : undefined}>{u.bn}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div class="rounded-[10px] border border-line bg-mist/50 p-4">
+        <div class="mb-3 text-[13px] font-semibold uppercase tracking-wide text-muted">সব এককে ফলাফল</div>
+        <div id="conv-results" class="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+          <!-- JS ভরে দেবে -->
+        </div>
+      </div>
+    </div>
+
+    <!-- রেফারেন্স টেবিল -->
+    <section class="mt-10">
+      <h2 class="mb-4 text-h2 font-bold text-deep">মূল রূপান্তর সূত্র</h2>
+      <div class="overflow-x-auto rounded-[14px] border border-line bg-white">
+        <table class="w-full text-left text-[15px]">
+          <thead class="bg-mist">
+            <tr>
+              <th class="px-4 py-3 font-semibold text-deep">একক</th>
+              <th class="px-4 py-3 font-semibold text-deep">সমান</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-line">
+            <tr><td class="px-4 py-3 font-semibold">১ বিঘা</td><td class="px-4 py-3">৩৩ শতাংশ = ২০ কাঠা = ১৪,৩৭৫ বর্গফুট (প্রায়)</td></tr>
+            <tr><td class="px-4 py-3 font-semibold">১ কাঠা</td><td class="px-4 py-3">১.৬৫ শতাংশ = ১৬ ছটাক = প্রায় ৭২০ বর্গফুট</td></tr>
+            <tr><td class="px-4 py-3 font-semibold">১ শতাংশ</td><td class="px-4 py-3">৪৩৫.৬ বর্গফুট = ৪০.৪৬ বর্গমিটার</td></tr>
+            <tr><td class="px-4 py-3 font-semibold">১ একর</td><td class="px-4 py-3">১০০ শতাংশ = ৪৩,৫৬০ বর্গফুট = প্রায় ৩.০৩ বিঘা</td></tr>
+            <tr><td class="px-4 py-3 font-semibold">১ হেক্টর</td><td class="px-4 py-3">২৪৭.১০৫ শতাংশ = ২.৪৭১ একর</td></tr>
+            <tr><td class="px-4 py-3 font-semibold">১ কানি <span class="text-[12px] font-normal text-muted">(আঞ্চলিক)</span></td><td class="px-4 py-3">১২০ শতাংশ = ৪০ গন্ডা (কিছু এলাকায় ভিন্ন)</td></tr>
+            <tr><td class="px-4 py-3 font-semibold">১ ছটাক</td><td class="px-4 py-3">০.১০৩১২৫ শতাংশ = প্রায় ৪৫ বর্গফুট</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- নোট -->
+    <div class="mt-8 rounded-[14px] border border-line bg-white p-5 text-[15px] leading-relaxed">
+      <strong class="text-deep">নোট:</strong>
+      বিঘা, কানি ও গন্ডার মান অঞ্চলভেদে ভিন্ন হয়। এখানে ১ বিঘা = ৩৩ শতাংশ এবং ১ কানি = ১২০ শতাংশ ধরা হয়েছে,
+      কিন্তু কোথাও কোথাও এর চেয়ে কম বা বেশি। সরকারি দলিলে শতাংশ বা বর্গফুট ব্যবহারই নিরাপদ।
+      আইনি কাজে নিজ জেলা রেকর্ড অফিসের মান যাচাই করে নিন।
+    </div>
+
+  </section>
+
+  <script>
+    import { units, toShotangsho } from '../data/landUnits.js';
+
+    const input = document.getElementById('conv-value') as HTMLInputElement;
+    const select = document.getElementById('conv-unit') as HTMLSelectElement;
+    const results = document.getElementById('conv-results') as HTMLDivElement;
+
+    function fmt(num: number, decimals: number): string {
+      if (!Number.isFinite(num)) return '—';
+      return num.toLocaleString('bn-BD', { maximumFractionDigits: decimals });
+    }
+
+    function render() {
+      const value = parseFloat(input.value);
+      const fromUnit = select.value;
+      if (!Number.isFinite(value) || value < 0) {
+        results.innerHTML = '<p class="col-span-full py-3 text-center text-muted">মান লিখুন</p>';
+        return;
+      }
+
+      const inShotangsho = value * toShotangsho[fromUnit as keyof typeof toShotangsho];
+
+      results.innerHTML = units
+        .map((u) => {
+          const converted = inShotangsho / toShotangsho[u.key as keyof typeof toShotangsho];
+          const isSource = u.key === fromUnit;
+          const display = fmt(converted, u.decimals);
+          return `
+            <div class="flex items-center justify-between rounded-lg border px-3 py-2 ${
+              isSource ? 'border-flag bg-white' : 'border-line bg-white/70'
+            }">
+              <span class="text-[14px] ${isSource ? 'font-bold text-flag' : 'text-muted'}">${u.bn}</span>
+              <span class="text-[16px] font-bold text-deep">${display}</span>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    input.addEventListener('input', render);
+    select.addEventListener('change', render);
+    render();
+  </script>
+</Layout>
