@@ -1,7 +1,23 @@
 ---
 import '../styles/global.css';
 import { menu } from '../data/site.js';
-const { title = 'ভূমিসেবা.বাংলা' } = Astro.props;
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'ভূমিসেবা.বাংলা — ভূমির জটিল বিষয়, সহজ ভাষায়',
+  description = 'ভূমির একক রূপান্তর, ওয়ারিশ অংশ, নামজারির ধাপ ও ফি — সব এক জায়গায়, বাংলায়।',
+  image = '/favicon.svg',
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const site = Astro.site ?? new URL('https://ভূমিসেবা.বাংলা');
+const canonical = new URL(path, site).href;
+const ogImage = new URL(image, site).href;
 ---
 <!doctype html>
 <html lang="bn">
@@ -9,65 +25,173 @@ const { title = 'ভূমিসেবা.বাংলা' } = Astro.props;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta name="theme-color" content="#006A4E" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ভূমিসেবা.বাংলা" />
+  <meta property="og:locale" content="bn_BD" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header class="bg-flag text-white">
-    <div class="relative mx-auto grid max-w-[1160px] grid-cols-[1fr_auto] items-center gap-y-3 px-4 py-3 md:flex md:justify-between md:gap-3 md:px-5 md:py-3.5">
+  <a href="#main" class="skip-link">মূল কনটেন্টে যান</a>
 
-      <a href="/" class="flex items-center gap-3">
-        <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="10" fill="#E0A526"/><path d="M8 32 L22 12 L36 32 Z" fill="#006A4E"/><path d="M8 36 H36" stroke="#006A4E" stroke-width="3"/></svg>
-        <span class="text-[22px] font-bold">ভূমিসেবা.বাংলা</span>
+  <header class="sticky top-0 z-40 bg-flag text-white shadow-sm">
+    <div class="relative mx-auto flex max-w-[1160px] items-center gap-3 px-4 py-3 md:px-5">
+
+      <!-- লোগো -->
+      <a href="/" class="flex shrink-0 items-center gap-3" aria-label="ভূমিসেবা.বাংলা — হোম">
+        <svg width="40" height="40" viewBox="0 0 44 44" aria-hidden="true">
+          <rect width="44" height="44" rx="10" fill="#E0A526" />
+          <path d="M8 32 L22 12 L36 32 Z" fill="#006A4E" />
+          <path d="M8 36 H36" stroke="#006A4E" stroke-width="3" />
+        </svg>
+        <span class="text-[20px] font-bold md:text-[22px]">ভূমিসেবা.বাংলা</span>
       </a>
 
-      <nav aria-label="প্রধান মেনু" class="hidden flex-wrap gap-x-5 gap-y-1.5 text-base md:flex">
-        {menu.map((m) => <a href={m.href}>{m.name}</a>)}
+      <!-- ডেস্কটপ নেভ (lg থেকে) -->
+      <nav aria-label="প্রধান মেনু"
+           class="ml-auto hidden whitespace-nowrap text-[15px] lg:flex lg:gap-x-4">
+        {menu.map((m) => (
+          <a href={m.href}
+             aria-current={path === m.href ? 'page' : undefined}
+             class="rounded px-2 py-2 transition-colors hover:bg-white/10 aria-[current=page]:underline aria-[current=page]:decoration-gold aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8">
+            {m.name}
+          </a>
+        ))}
       </nav>
 
-      <div class="flex justify-self-end overflow-hidden rounded-[10px] border-2 border-white text-base font-semibold">
-        <a href="#" class="flex min-h-10 items-center bg-white px-3.5 text-flag">বাংলা</a>
-        <a href="#" class="flex min-h-10 items-center px-3.5 text-white">EN</a>
+      <!-- ভাষা টগল (xl থেকে) -->
+      <div role="group" aria-label="ভাষা"
+           class="ml-2 hidden overflow-hidden rounded-[10px] border-2 border-white text-[15px] font-semibold xl:flex">
+        <span aria-current="true" class="flex min-h-10 items-center bg-white px-3.5 text-flag">বাংলা</span>
+        <span aria-disabled="true" title="শীঘ্রই আসছে" class="flex min-h-10 cursor-not-allowed items-center px-3.5 text-white/60">EN</span>
       </div>
 
-      <details class="md:hidden">
-        <summary aria-label="মেনু খুলুন" class="flex h-11 w-12 items-center justify-center rounded-[10px] border-2 border-white">
-          <svg width="26" height="20" viewBox="0 0 26 20" aria-hidden="true"><path d="M2 3H24M2 10H24M2 17H24" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+      <!-- লগইন (details এ relative যোগ করা হয়েছে) -->
+      <details class="group relative ml-auto lg:ml-0">
+        <summary class="flex min-h-11 cursor-pointer items-center gap-2 rounded-[10px] bg-gold px-4 text-base font-bold text-deep transition-colors hover:bg-gold/90 focus-visible:!outline-deep">
+          লগইন
+          <svg class="transition-transform duration-200 group-open:rotate-180" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+            <path d="M2 5 L7 10 L12 5" fill="none" stroke="#0B3D2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </summary>
-        <div class="absolute left-4 right-4 top-full z-30 flex flex-col rounded-xl bg-white p-2 text-[17px] font-semibold text-deep shadow-lg">
-          {menu.map((m) => <a href={m.href} class="flex min-h-12 items-center border-b border-line px-3 last:border-b-0">{m.name}</a>)}
+        <div class="absolute right-0 top-full z-30 mt-2 flex w-[240px] flex-col gap-3 rounded-xl bg-white p-3.5 shadow-lg ring-1 ring-line">
+          <span aria-disabled="true" title="শীঘ্রই আসছে"
+                class="flex min-h-11 cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-line bg-paper text-[15px] font-semibold text-muted">
+            এলএসএফসি লগইন <span class="rounded bg-gold/20 px-1.5 py-0.5 text-[11px] text-deep">শীঘ্রই</span>
+          </span>
+          <span aria-disabled="true" title="শীঘ্রই আসছে"
+                class="flex min-h-11 cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-line bg-paper text-[15px] font-semibold text-muted">
+            এডমিন লগইন <span class="rounded bg-gold/20 px-1.5 py-0.5 text-[11px] text-deep">শীঘ্রই</span>
+          </span>
         </div>
       </details>
 
-      <details class="relative z-20 justify-self-end">
-        <summary class="flex min-h-11 items-center gap-2 rounded-[10px] bg-gold px-[18px] text-base font-bold text-deep">
-          লগইন
-          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5 L7 10 L12 5" fill="none" stroke="#0B3D2E" stroke-width="2"/></svg>
+      <!-- মোবাইল মেনু (lg-এর নিচে) -->
+      <details class="group relative lg:hidden" data-mobile-menu>
+        <summary aria-label="মেনু" class="flex h-11 w-12 cursor-pointer items-center justify-center rounded-[10px] border-2 border-white">
+          <svg class="group-open:hidden" width="26" height="20" viewBox="0 0 26 20" aria-hidden="true">
+            <path d="M2 3H24M2 10H24M2 17H24" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <svg class="hidden group-open:block" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 4 L16 16 M16 4 L4 16" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          </svg>
         </summary>
-        <div class="absolute right-0 top-[52px] flex w-[220px] flex-col gap-3 rounded-xl bg-white p-3.5 shadow-lg">
-          <a href="#" class="flex min-h-11 items-center justify-center rounded-lg border border-flag bg-white text-base font-semibold text-deep">এলএসএফসি লগিন</a>
-          <a href="#" class="flex min-h-11 items-center justify-center rounded-lg border border-flag bg-white text-base font-semibold text-deep">এডমিন লগিন</a>
+        <div class="absolute left-0 right-0 top-full z-40 mt-2 max-h-[70vh] overflow-y-auto rounded-xl bg-white p-2 text-[16px] font-semibold text-deep shadow-lg ring-1 ring-line">
+          {menu.map((m) => (
+            <a href={m.href}
+               aria-current={path === m.href ? 'page' : undefined}
+               class="flex min-h-12 items-center border-b border-line px-3 transition-colors last:border-b-0 hover:bg-mist aria-[current=page]:text-flag">
+              {m.name}
+            </a>
+          ))}
+          <div class="mt-2 border-t border-line px-3 py-2 text-[13px] font-normal text-muted">
+            ভাষা: বাংলা · EN শীঘ্রই আসছে
+          </div>
         </div>
       </details>
 
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <slot />
   </main>
 
-  <footer class="bg-deep text-[#DDEFEA]">
-    <div class="mx-auto max-w-[1160px] px-5 py-8 text-[15px] leading-[1.8]">
-      <div class="mb-1.5 text-[17px] font-bold text-white">ভূমিসেবা.বাংলা</div>
-      <div>এটি একটি বেসরকারি তথ্য ও সহায়তা সাইট, সরকারি ওয়েবসাইট নয়।</div>
-      <div class="mt-2.5 flex flex-wrap gap-x-5 gap-y-1.5">
-        <a href="#" class="underline">ভুল পেলে জানান</a>
-        <a href="/contact">যোগাযোগ</a>
-        <a href="#">ওপেন সোর্স কোড</a>
+  <footer class="mt-4 bg-deep text-[#DDEFEA]">
+    <div class="mx-auto max-w-[1160px] px-5 py-10 text-[15px] leading-[1.8]">
+      <div class="grid gap-8 md:grid-cols-[2fr_1fr_1fr]">
+        <div>
+          <div class="mb-2 text-[17px] font-bold text-white">ভূমিসেবা.বাংলা</div>
+          <p class="max-w-[36ch] text-[#DDEFEA]/90">
+            ভূমির একক রূপান্তর, ওয়ারিশ অংশ, নামজারির ধাপ ও ফি — সব এক জায়গায়, বাংলায়।
+          </p>
+        </div>
+        <div>
+          <div class="mb-2 text-[15px] font-bold text-white">দ্রুত লিংক</div>
+          <ul class="space-y-1.5">
+            {menu.slice(1).map((m) => (
+              <li>
+                <a href={m.href} class="transition-colors hover:text-white hover:underline">{m.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 text-[15px] font-bold text-white">সহায়তা</div>
+          <ul class="space-y-1.5">
+            <li><a href="/contact" class="transition-colors hover:text-white hover:underline">যোগাযোগ</a></li>
+            <li><a href="mailto:info.kclbd@gmail.com" class="transition-colors hover:text-white hover:underline">ভুল পেলে জানান</a></li>
+            <li><span class="cursor-not-allowed text-[#DDEFEA]/60">ওপেন সোর্স কোড — শীঘ্রই</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-white/10 pt-5 text-[13px] text-[#DDEFEA]/70">
+        এটি একটি বেসরকারি তথ্য ও সহায়তা সাইট, সরকারি ওয়েবসাইট নয়। · © {new Date().getFullYear()} ভূমিসেবা.বাংলা
       </div>
     </div>
   </footer>
+
+  <script>
+    // বাইরে ক্লিকে যেকোনো খোলা details বন্ধ
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+
+      // মোবাইল মেনু: লিংকে ক্লিক করলে বন্ধ
+      const mobileMenu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu][open]');
+      if (mobileMenu && mobileMenu.contains(target) && target.closest('a')) {
+        mobileMenu.removeAttribute('open');
+        return;
+      }
+
+      // বাইরে ক্লিকে সব details বন্ধ
+      document.querySelectorAll<HTMLDetailsElement>('details[open]').forEach((d) => {
+        if (!d.contains(target)) d.removeAttribute('open');
+      });
+    });
+
+    // Escape কী দিয়ে সব details বন্ধ
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll<HTMLDetailsElement>('details[open]').forEach((d) => {
+          d.removeAttribute('open');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
