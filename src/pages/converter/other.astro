@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { units, toShotangsho, fmtBn } from '../data/landUnits.js';
+import Layout from '../../layouts/Layout.astro';
+import { units, toShotangsho, fmtBn } from '../../data/landUnits.js';
 
 // সার্ভার-সাইডে সোর্স একক থেকে সব টার্গেট এককে প্রি-ক্যালকুলেট ফ্যাক্টর
 const conversionMatrix: Record<string, Record<string, number>> = {};
@@ -12,7 +12,7 @@ for (const from of units) {
 }
 ---
 <Layout
-  title="জমির একক রূপান্তরকারী — ভূমিসেবা.বাংলা"
+  title="অন্যান্য ইউনিট রূপান্তর — ভূমিসেবা.বাংলা"
   description="বিঘা, কাঠা, শতাংশ, ছটাক, একর, হেক্টর, বর্গফুট — যেকোনো একক থেকে সব এককে রূপান্তর করুন, তাৎক্ষণিক।"
 >
   <section class="mx-auto max-w-[1160px] px-4 py-10 md:px-5 md:py-14">
@@ -22,12 +22,14 @@ for (const from of units) {
       <ol class="flex flex-wrap items-center gap-2">
         <li><a href="/" class="transition-colors hover:text-deep hover:underline">হোম</a></li>
         <li aria-hidden="true">/</li>
-        <li><span aria-current="page" class="font-semibold text-deep">জমির একক রূপান্তরকারী</span></li>
+        <li><a href="/converter" class="transition-colors hover:text-deep hover:underline">একক রূপান্তর</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="page" class="font-semibold text-deep">অন্যান্য ইউনিট রূপান্তর</span></li>
       </ol>
     </nav>
 
     <header class="mb-10">
-      <h1 class="mb-3 text-h1 font-bold text-deep">জমির একক রূপান্তরকারী</h1>
+      <h1 class="mb-3 text-h1 font-bold text-deep">অন্যান্য ইউনিট রূপান্তর</h1>
       <p class="max-w-[640px] text-[17px] leading-relaxed text-muted">
         বাংলাদেশের প্রথাগত একক — বিঘা, কাঠা, শতাংশ, ছটাক, কানি — সব একসাথে।
         একটি মান লিখলেই বাকি সব এককে তাৎক্ষণিক ফলাফল।
@@ -98,14 +100,15 @@ for (const from of units) {
     <div class="mt-8 rounded-[14px] border border-line bg-white p-5 text-[15px] leading-relaxed">
       <strong class="text-deep">নোট:</strong>
       বিঘা, কানি ও গন্ডার মান অঞ্চলভেদে ভিন্ন হয়। এখানে ১ বিঘা = ৩৩ শতাংশ এবং ১ কানি = ১২০ শতাংশ ধরা হয়েছে,
-      কিন্তু কোথাও কোথাও এর চেয়ে কম বা বেশি। সরকারি দলিলে শতাংশ বা বর্গফুট ব্যবহারই নিরাপদ।
+      কিন্তু কোথাও কোথাও এর চেয়ে কম বা বেশি। এই মানগুলোর সরকারি সূত্র এখনো মেলানো হয়নি, তাই ফলাফল আনুমানিক ধরুন।
+      সরকারি দলিলে শতাংশ বা বর্গফুট ব্যবহারই নিরাপদ।
       আইনি কাজে নিজ জেলা রেকর্ড অফিসের মান যাচাই করে নিন।
     </div>
 
   </section>
 
   <script>
-    import { units, toShotangsho } from '../data/landUnits.js';
+    import { units, toShotangsho } from '../../data/landUnits.js';
 
     const input = document.getElementById('conv-value') as HTMLInputElement;
     const select = document.getElementById('conv-unit') as HTMLSelectElement;

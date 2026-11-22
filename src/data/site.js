@@ -1,6 +1,7 @@
 // প্রধান মেনু
 export const menu = [
   { name: "হোম", href: "/" },
+  { name: "একক রূপান্তর", href: "/converter" },
   { name: "আমাদের সম্পর্কে", href: "/about" },
   { name: "সেবা পদ্ধতি", href: "/process" },
   { name: "ফি তালিকা", href: "/fees" },

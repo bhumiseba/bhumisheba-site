@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// status: "live" → ক্লিকযোগ্য · "soon" → নিষ্ক্রিয় + ব্যাজ
+// কার্ড ১ ও ২ চালু করতে: href বদলে status "live" করা হবে
+const cards = [
+  {
+    name: 'আনা-গন্ডা থেকে আধুনিক হিস্যা',
+    desc: 'মালিকের আনা-গন্ডা দিলে ১.০০০ ও ১০০০ ভিত্তিক হিস্যা এবং প্রাপ্য জমি।',
+    href: '#',
+    status: 'soon',
+    color: '#006A4E',
+    icon: '<path d="M8 14h24M26 8l6 6-6 6M40 34H16M22 28l-6 6 6 6"/>',
+  },
+  {
+    name: 'জমির পরিমাণ থেকে আনা-গন্ডা ও আধুনিক হিস্যা',
+    desc: 'মোট জমি ও প্রত্যেকের জমি দিলে আনা-গন্ডা এবং আধুনিক হিস্যা।',
+    href: '#',
+    status: 'soon',
+    color: '#1F6F8B',
+    icon: '<rect x="8" y="8" width="32" height="32" rx="3"/><path d="M8 24h32M24 8v32"/>',
+  },
+  {
+    name: 'অন্যান্য ইউনিট রূপান্তর',
+    desc: 'বিঘা, কাঠা, শতাংশ, একর, বর্গফুট ইত্যাদি এককের রূপান্তর।',
+    href: '/converter/other',
+    status: 'live',
+    color: '#7A4B22',
+    icon: '<path d="M10 18h26M30 10l8 8-8 8M38 32H12M18 24l-8 8 8 8"/>',
+  },
+];
+---
+<Layout
+  title="একক রূপান্তর — ভূমিসেবা.বাংলা"
+  description="আনা-গন্ডা থেকে আধুনিক হিস্যা, জমির পরিমাণ থেকে হিস্যা এবং অন্যান্য জমির একক রূপান্তর।"
+>
+  <section class="mx-auto max-w-[1160px] px-4 py-10 md:px-5 md:py-14">
+
+    <nav aria-label="ব্রেডক্রাম্ব" class="mb-6 text-[14px] text-muted">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="/" class="transition-colors hover:text-deep hover:underline">হোম</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="page" class="font-semibold text-deep">একক রূপান্তর</span></li>
+      </ol>
+    </nav>
+
+    <header class="mb-8">
+      <h1 class="mb-3 text-h1 font-bold text-deep">একক রূপান্তর</h1>
+      <p class="max-w-[640px] text-[17px] leading-relaxed text-muted">
+        যে হিসাবটি করতে চান, সেই কার্ডটি বেছে নিন।
+      </p>
+    </header>
+
+    <div class="grid gap-4 md:grid-cols-3 md:gap-5">
+      {cards.map((c) => c.status === 'live' ? (
+        <a
+          href={c.href}
+          class="group relative flex min-h-[220px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white transition hover:-translate-y-1 hover:border-flag/50 hover:shadow-md focus-visible:-translate-y-1"
+        >
+          <div class="h-2 transition-all group-hover:h-3" style={`background:${c.color}`}></div>
+          <div class="mt-5 flex h-14 items-center justify-center" style={`color:${c.color}`}>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" set:html={c.icon}></svg>
+          </div>
+          <div class="px-4 pt-3 text-center text-[17px] font-bold leading-[1.5] text-deep">{c.name}</div>
+          <p class="px-4 pb-5 pt-2 text-center text-[14px] leading-[1.6] text-muted">{c.desc}</p>
+        </a>
+      ) : (
+        <div
+          aria-disabled="true"
+          class="relative flex min-h-[220px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-dashed border-line bg-white/60"
+        >
+          <div class="h-2 opacity-50" style={`background:${c.color}`}></div>
+          <span class="absolute right-3 top-4 rounded-full bg-gold/90 px-2 py-0.5 text-[11px] font-bold text-deep">
+            শীঘ্রই
+          </span>
+          <div class="mt-5 flex h-14 items-center justify-center opacity-60" style={`color:${c.color}`}>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" set:html={c.icon}></svg>
+          </div>
+          <div class="px-4 pt-3 text-center text-[17px] font-bold leading-[1.5] text-muted">{c.name}</div>
+          <p class="px-4 pb-5 pt-2 text-center text-[14px] leading-[1.6] text-muted">{c.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-8 flex items-center gap-2 text-[14px] text-muted">
+      সব হিসাব আপনার ব্রাউজারেই হয়, কোনো তথ্য কোথাও জমা হয় না।
+    </p>
+
+  </section>
+</Layout>
