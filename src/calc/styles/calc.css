@@ -1,0 +1,92 @@
+/* src/calc/styles/calc.css
+   ক্যালকুলেটরের রঙের মান ও ক্লাস, শুধু .calc-root-এর ভেতরে (মূল সাইটের বাকি অংশ অক্ষত) */
+
+.calc-root {
+  --bg-app: #FAFAF9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-raised: #FFFFFF;
+  --bg-surface-subtle: #F5F5F4;
+  --bg-overlay: rgba(12, 10, 9, 0.60);
+
+  --text-primary: #0C0A09;
+  --text-secondary: #57534E;
+  --text-tertiary: #78716C;
+  --text-disabled: #A8A29E;
+  --text-inverse: #FAFAF9;
+
+  --border-subtle: #E7E5E4;
+  --border-default: #D6D3D1;
+  --border-strong: #A8A29E;
+
+  --accent-primary: #047857;
+  --accent-primary-hover: #065F46;
+  --accent-primary-subtle: #ECFDF5;
+  --accent-primary-border: #A7F3D0;
+
+  --accent-legal: #1E40AF;
+  --accent-legal-subtle: #EFF6FF;
+
+  --state-success: #047857;
+  --state-success-bg: #ECFDF5;
+  --state-success-border: #A7F3D0;
+  --state-warning: #B45309;
+  --state-warning-bg: #FFFBEB;
+  --state-warning-border: #FDE68A;
+  --state-error: #BE123C;
+  --state-error-bg: #FFF1F2;
+  --state-error-border: #FECDD3;
+  --state-info: #0369A1;
+  --state-info-bg: #F0F9FF;
+  --state-info-border: #BAE6FD;
+
+  --elevation-1: 0 1px 2px 0 rgba(12, 10, 9, 0.05);
+  --elevation-2: 0 2px 4px -1px rgba(12, 10, 9, 0.06), 0 1px 2px -1px rgba(12, 10, 9, 0.04);
+  --elevation-3: 0 4px 8px -2px rgba(12, 10, 9, 0.08), 0 2px 4px -2px rgba(12, 10, 9, 0.04);
+  --elevation-4: 0 10px 20px -4px rgba(12, 10, 9, 0.10), 0 4px 8px -4px rgba(12, 10, 9, 0.06);
+
+  --focus-ring-color: #047857;
+  --focus-ring-offset: 2px;
+}
+
+.calc-root .bg-app { background-color: var(--bg-app); }
+.calc-root .bg-surface { background-color: var(--bg-surface); }
+.calc-root .bg-surface-raised { background-color: var(--bg-surface-raised); }
+.calc-root .bg-surface-subtle { background-color: var(--bg-surface-subtle); }
+
+.calc-root .text-primary { color: var(--text-primary); }
+.calc-root .text-secondary { color: var(--text-secondary); }
+.calc-root .text-tertiary { color: var(--text-tertiary); }
+
+.calc-root .border-subtle { border-color: var(--border-subtle); }
+.calc-root .border-default { border-color: var(--border-default); }
+.calc-root .border-strong { border-color: var(--border-strong); }
+
+.calc-root .shadow-elevation-1 { box-shadow: var(--elevation-1); }
+.calc-root .shadow-elevation-2 { box-shadow: var(--elevation-2); }
+.calc-root .shadow-elevation-3 { box-shadow: var(--elevation-3); }
+.calc-root .shadow-elevation-4 { box-shadow: var(--elevation-4); }
+
+.calc-root .focus-ring { outline: none; }
+.calc-root .focus-ring:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 10px;
+}
+
+.calc-root .font-mono-num {
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+/* প্রিন্টের সময় সাইটের হেডার-ফুটার বাদ */
+@media print {
+  body > header,
+  body > footer,
+  .skip-link,
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}

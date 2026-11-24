@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ConverterApp from '../../calc/ConverterApp';
+import CalcNotice from '../../components/CalcNotice.astro';
+---
+<Layout
+  title="জমির পরিমাণ থেকে আনা-গন্ডা ও আধুনিক হিস্যা — ভূমিসেবা.বাংলা"
+  description="মোট জমি ও প্রত্যেকের জমি দিলে আনা-গন্ডা এবং আধুনিক হিস্যা।"
+>
+  <section class="mx-auto max-w-[1160px] px-4 py-10 md:px-5 md:py-14">
+
+    <nav aria-label="ব্রেডক্রাম্ব" class="mb-6 text-[14px] text-muted">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="/" class="transition-colors hover:text-deep hover:underline">হোম</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/converter" class="transition-colors hover:text-deep hover:underline">একক রূপান্তর</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span aria-current="page" class="font-semibold text-deep">জমির পরিমাণ থেকে আনা-গন্ডা ও আধুনিক হিস্যা</span></li>
+      </ol>
+    </nav>
+
+    <ConverterApp client:load initialMode="AREA" />
+
+    <CalcNotice />
+
+  </section>
+</Layout>

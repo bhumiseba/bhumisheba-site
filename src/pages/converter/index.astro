@@ -2,21 +2,20 @@
 import Layout from '../../layouts/Layout.astro';
 
 // status: "live" → ক্লিকযোগ্য · "soon" → নিষ্ক্রিয় + ব্যাজ
-// কার্ড ১ ও ২ চালু করতে: href বদলে status "live" করা হবে
 const cards = [
   {
     name: 'আনা-গন্ডা থেকে আধুনিক হিস্যা',
     desc: 'মালিকের আনা-গন্ডা দিলে ১.০০০ ও ১০০০ ভিত্তিক হিস্যা এবং প্রাপ্য জমি।',
-    href: '#',
-    status: 'soon',
+    href: '/converter/ana-ganda',
+    status: 'live',
     color: '#006A4E',
     icon: '<path d="M8 14h24M26 8l6 6-6 6M40 34H16M22 28l-6 6 6 6"/>',
   },
   {
     name: 'জমির পরিমাণ থেকে আনা-গন্ডা ও আধুনিক হিস্যা',
     desc: 'মোট জমি ও প্রত্যেকের জমি দিলে আনা-গন্ডা এবং আধুনিক হিস্যা।',
-    href: '#',
-    status: 'soon',
+    href: '/converter/jomir-poriman',
+    status: 'live',
     color: '#1F6F8B',
     icon: '<rect x="8" y="8" width="32" height="32" rx="3"/><path d="M8 24h32M24 8v32"/>',
   },

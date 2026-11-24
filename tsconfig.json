@@ -9,6 +9,15 @@
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "verbatimModuleSyntax": false,
+    "paths": {
+      "@calculation-core": ["./packages/calculation-core/src/index.ts"],
+      "@calculation-core/*": ["./packages/calculation-core/src/*"],
+      "@land-domain": ["./packages/land-domain/src/index.ts"],
+      "@land-domain/*": ["./packages/land-domain/src/*"],
+      "@shared": ["./packages/shared/src/index.ts"],
+      "@shared/*": ["./packages/shared/src/*"]
+    }
   }
 }
